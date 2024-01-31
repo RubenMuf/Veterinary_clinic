@@ -1,0 +1,70 @@
+{% load static %}
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+
+
+    <nav class="container mt-3">
+        <ul class="nav nav-tabs nav-justified">
+
+            <li class="nav-item">
+                <a class="nav-link active" href="{% url 'home' %}">Главная</a> {# ссылки с путем по джанговской теме в {% путь который попадает в urls.py по имени %} #}
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="">Услуги</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'record' %}">Запись</a>
+            </li>
+
+            {#            проверка если нет в таблице юзера то выводит Логин, если есть то Выйти#}
+{#            {% if not user.username %}#}
+{#            <li class="nav-item">#}
+{#                <a class="nav-link" href="{% url 'login' %}">Войти</a>#}
+{#            </li>#}
+{#                {% else %}#}
+{#            <li class="nav-item">#}
+{#                <a class="nav-link" href="{% url 'logout' %}">Выйти</a>#}
+{#            </li>#}
+{#            {% endif %}#}
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'admin:index' %}">Управление</a>
+            </li>
+
+            {% if user.is_authenticated %}
+                 <li class="last"><a href="{% url 'users:profile' %}">{{ user.username }}</a> | <a href="{% url 'users:logout' %}">Выйти</a></li>
+            {% else %}
+                <li class="nav-item"><a href="{% url 'users:login' %}">Войти</a> | <a href="{% url 'users:register' %}">Регистрация</a></li>
+            {% endif %}
+
+            </ul>
+    </nav>
+
+
+<div class="container-fluid mt-3">
+  <div class="row">
+        <div class="col p-3 text-bg-color">
+            телефон: +7‒905‒085‒15‒99<br/>
+            вацап: +7-905-085-15-99<br/>
+            телеграмм: +7-905-085-15-99<br/>
+        </div>
+
+        <div class="col p-3 text-bg-color">
+            <p>Мы находимся по адресу:<br/> Тамбовская обл.,<br/> г. Котовск,<br/> ул. Лесная, д. 12.</p>
+        </div>
+
+        <div class="col p-3 text-bg-color">
+            <img src="{% static 'clinic/img/logo_link/logo1.png' %}" alt="Foto logo" width="100" style="margin-left: 170px">
+            <h5>Здоровье вашего питомца!</h5>
+        </div>
+    </div>
+</div>

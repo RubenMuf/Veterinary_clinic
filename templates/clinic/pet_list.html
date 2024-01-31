@@ -1,0 +1,60 @@
+{% load static %}
+
+{% block menu %}  {# джанговская тема для выбода меню, чтобы информация их функций views.py попадала на HTML #}{#    <nav class="container mt-3">#}
+    {% include 'clinic/includes/block_menu.html' %}
+{% endblock menu %}{# конец блока меню, пишется обязательно #}
+
+{% block content %}
+<div class="container-fluid mt-3">
+  <div class="row">
+    <div class="col-sm-4 p-3 bg-primary text-white">
+
+      <h3 style="color: white">Наши пациенты:</h3>
+
+        <ul>
+            {% for pet in pet_list %}
+            <li>
+            {% if pet.photo %}
+                <img src="{{ pet.photo.url }}" alt="Foto" width="100" style="border-radius: 50px">
+            {% else %}
+                <p>Нет фото</p>
+            {% endif %}
+            <a href="{{ pet.get_absolute_url }}"><h6 style="color: white">{{ pet.view }} {{ pet.breed }} {{ pet.nick_name }}</h6></a>
+            </li>
+            {% endfor %}
+        </ul>
+
+{# блок пагинации на странице #}
+      {% block navigation %}
+        <div class="pagination">
+            <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1" style="color: white">&laquo; перв.</a>
+                <a href="?page={{ page_obj.previous_page_number }}" style="color: white">пред.</a>
+            {% endif %}
+
+            <span class="current">
+                Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" style="color: white">след.</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}" style="color: white">посл. &raquo;</a>
+            {% endif %}
+            </span>
+        </div>
+      {% endblock navigation%}
+    </div>
+
+          <div class="col-sm-8 p-3 text-white">
+            <img src="{% static 'clinic/img/logo_link/noi.png' %}" alt="Foto logo" width="400px">
+        </div>
+  </div>
+</div>
+{% endblock content %}
+
+
+
+
+
+

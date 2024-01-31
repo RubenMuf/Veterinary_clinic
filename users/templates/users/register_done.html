@@ -1,0 +1,36 @@
+{#{% extends 'base.html' %}#}
+{##}
+{#{% block content %}#}
+{#    <h1>Добро пожаловать!</h1>#}
+{#    <p>Вы успешно зарегистрировались на сайте! Для входа в систему необходимо авторизироваться по этой</p>#}
+{#    <a href="{% url 'users:login' %}">ссылке</a>#}
+{#{% endblock content %}#}
+
+{% load static %}
+{% block menu %}  {# джанговская тема для выбода меню, чтобы информация их функций views.py попадала на HTML #}{#    <nav class="container mt-3">#}
+    {% include 'clinic/includes/block_menu.html' %}
+{% endblock menu %}{# конец блока меню, пишется обязательно #}
+
+{#<link rel="stylesheet" href="{% static 'css/index.css' %}">#}
+
+{% block content %}
+<div class="container-fluid mt-3">
+    <div class="row">
+    <div class="col-sm-4 p-3 bg-primary text-white">
+
+
+{#         <img src="{% static img %}" alt="Foto logo" width="150" style="border-radius: 75px">#}
+{#         <h3 style="color: brown"><span class="badge bg-secondary"><span style="color: white">{{ user_first_name }} </span></span></h3>#}
+
+    <h2>Добро пожаловать!</h2>
+    <p>Вы успешно зарегистрировались на сайте! Для входа в систему необходимо авторизироваться по этой</p>
+    <a href="{% url 'users:login' %}" style="color: white">ссылке</a>
+    </div>
+
+    <div class="col-sm-8 p-3 bg-dark text-white">
+        <img src="{% static 'clinic/img/logo_link/noi.png' %}" alt="Foto logo" width="400" id="noi">
+    </div>
+
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,47 @@
+{% load static %}
+{% block menu %}  {# джанговская тема для выбода меню, чтобы информация их функций views.py попадала на HTML #}{#    <nav class="container mt-3">#}
+    {% include 'clinic/includes/block_menu.html' %}
+{% endblock menu %}{# конец блока меню, пишется обязательно #}
+
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+{% block content %}
+<div class="container-fluid mt-3">
+    <div class="row">
+    <div class="col-sm-4 p-3 bg-primary text-white">
+
+        <h2>Вход</h2>
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+
+            <img src="{% static 'clinic/img/logo_link/logo1.png' %}" alt="Foto logo" width="150px">
+
+            <table>
+                <tr>
+                    <td>{{ form.username.label_tag }}</td>
+                    <td>{{ form.username }}</td>
+                </tr>
+
+                <tr>
+                    <td>{{ form.password.label_tag }}</td>
+                    <td>{{ form.password }}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="{% url 'password_reset' %}" style="color: white">Забыли пароль?</a>
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" value="Вход">
+        </form>
+        <h2>
+            <a href="{% url 'registration' %}" style="color: white">Регистрация</a>
+        </h2>
+
+    </div>
+    <div class="col-sm-8 p-3 bg-dark text-white">
+
+    </div>
+  </div>
+</div>
+{% endblock content %}

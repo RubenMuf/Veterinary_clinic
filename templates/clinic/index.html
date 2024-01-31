@@ -1,0 +1,36 @@
+{% load static %}
+{% block menu %}  {# джанговская тема для выбода меню, чтобы информация их функций views.py попадала на HTML #}{#    <nav class="container mt-3">#}
+    {% include 'clinic/includes/block_menu.html' %}
+{% endblock menu %}{# конец блока меню, пишется обязательно #}
+
+{#<link rel="stylesheet" href="{% static 'css/index.css' %}">#}
+
+{% block content %}
+<div class="container-fluid mt-3">
+    <div class="row">
+    <div class="col-sm-4 p-3 bg-primary text-white">
+
+        <img src="{% static avatar %}" style="width: 183px" alt="foto">
+         <h3 style="color: brown"><span class="badge bg-secondary"><span style="color: white">{{ user_first_name }} </span></span></h3>
+{#        <h3 style="color: brown"><span class="badge bg-secondary"><span style="color: white"> {{ user_l_name }}</span></span></h3>#}
+        {% if user.username %}
+            <a href="{% url 'edit_a_profile' %}" style="color: white">Добавить питомца в базу</a>
+            {% else %}
+            <a href="{% url 'users:login' %}" style="color: white">Добавить питомца в базу/только авторизированным пользователям</a>
+        {% endif %}
+        <hr>
+        <a href="{% url 'allpet' %}" style="color: white"><h4>Наши пациенты</h4></a>
+        <hr>
+        <a href="{% url 'allvet' %}" style="color: white"><h4>Ветеринары</h4></a>
+        <hr>
+{#        <h3 style="color: brown"><span class="badge bg-secondary"><span style="color: white">{{ user_f_name }} </span></span></h3>#}
+{#        <h3 style="color: brown"><span class="badge bg-secondary"><span style="color: white"> {{ user_l_name }}.</span></span></h3>#}
+
+    </div>
+    <div class="col-sm-8 p-3 text-white">
+{#        <img src="{% static 'clinic/img/logo_link/noi.png' %}" alt="Foto logo" width="400" id="noi">#}
+{#        <img src="{% static 'clinic/img/logo_link/logo1.png' %}" alt="Foto logo" width="150" style="border-radius: 75px">#}
+    </div>
+  </div>
+</div>
+{% endblock content %}

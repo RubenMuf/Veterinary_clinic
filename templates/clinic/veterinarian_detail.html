@@ -1,0 +1,53 @@
+{% load static %}
+{% block menu %}  {# джанговская тема для выбода меню, чтобы информация их функций views.py попадала на HTML #}{#    <nav class="container mt-3">#}
+    {% include 'clinic/includes/block_menu.html' %}
+{% endblock menu %}{# конец блока меню, пишется обязательно #}
+
+{% block content %}
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col-sm-4 p-3 bg-primary text-white">
+            <img src="{{ veterinarian.photo.url }}" alt="">
+            <p>{{ veterinarian }}</p>
+            <hr>
+            <a href="" style="color: white">Записаться к доктору</a>
+        </div>
+
+        <div class="col-sm-8 p-3 bg-dark text-white">
+              <div class="container mt-3">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Специалист</th>
+                <th>Имя</th>
+                <th>Фамилия</th>
+                <th>e-mail</th>
+                <th>Телефон</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr>
+                <td>{{ veterinarian.specialist }}</td>
+                <td>{{ veterinarian.firstname }}</td>
+                <td>{{ veterinarian.lastname }}</td>
+                <td>{{ veterinarian.email }}</td>
+                <td>{{ veterinarian.tel }}</td>
+{#                <td>{{ pet.gender }}</td>#}
+{#                <td>{{ pet.onwer }}</td>#}
+              </tr>
+
+
+            </tbody>
+          </table>
+                  <h5>История и опыт работы:</h5>
+                  <p> {{ veterinarian.history }}</p>
+
+                  <a href="">Записаться к доктору</a>
+
+        </div>
+        </div>
+  </div>
+</div>
+
+{% endblock content %}

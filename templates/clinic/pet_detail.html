@@ -1,0 +1,52 @@
+{% load static %}
+{% block menu %}  {# джанговская тема для выбода меню, чтобы информация их функций views.py попадала на HTML #}{#    <nav class="container mt-3">#}
+    {% include 'clinic/includes/block_menu.html' %}
+{% endblock menu %}{# конец блока меню, пишется обязательно #}
+
+{% block content %}
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col-sm-4 p-3 bg-primary text-white">
+            <img src="{{ pet.photo.url }}" alt="">
+            <hr>
+{#            <p>{{  }}</p>#}
+        </div>
+
+        <div class="col-sm-8 p-3 text-bg-color"">
+              <div class="container mt-3">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Вид</th>
+                <th>Порода</th>
+                <th>Кличка</th>
+                <th>Возраст</th>
+                <th>Вес</th>
+                <th>Пол</th>
+                <th>Хозяин</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr>
+                <td>{{ pet.view }}</td>
+                <td>{{ pet.breed }}</td>
+                <td>{{ pet.nick_name }}</td>
+                <td>{{ pet.age }} года/лет</td>
+                <td>{{ pet.weight }} кг.</td>
+                <td>{{ pet.gender }}</td>
+                <td>{{ pet.onwer }}</td>
+              </tr>
+
+
+            </tbody>
+          </table>
+                  <h5>Выписка из медицинской карты животного:</h5>
+                  <p>{{ pet.medical_history }}</p>
+
+        </div>
+        </div>
+  </div>
+</div>
+
+{% endblock content %}
