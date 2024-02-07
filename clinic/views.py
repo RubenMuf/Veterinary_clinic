@@ -44,6 +44,7 @@ class PetHome(DataMixin, ListView): # главная страница. DataMixin
         user = self.request.user
         user_first_name = user.username if user.is_authenticated else 'Гость'
         context['user_first_name'] = f'Привет, {user_first_name}!'
+
         context['avatar'] = 'clinic/img/logo_link/no_avatar.png' if not user.is_authenticated else 'clinic/img/logo_link/admin.png'
         return context
 
