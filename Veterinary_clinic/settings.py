@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django_extensions', # этот пакет упрощает работу в консоле, чтобы не писать команды на низком уровне и были подсказки в терминале как в пайчарме
     'clinic.apps.ClinicConfig',
     'users', # для регистрации на сайте
+    'shop', # приложение интернет магазин
     # 'debug_toolbar' # для джангодебага
 
 
@@ -153,8 +154,8 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 AUTHENTICATION_BACKENDS = [ #
     'django.contrib.auth.backends.ModelBackend', # стандартный бекенд, делает авторизацию по логину и паролю
-    'users.authentication.EmailAuthBackend' # свой бекенд который прописали в папке users в файле authenticationБ делает авторизацию по email
+    'users.authentication.EmailAuthBackend' # свой бекенд который прописали в папке users в файле authentication, делает авторизацию по email
 ]
 
-AUTH_USER_MODEL = 'users.User' # чтобы расширить модель пользователя, без этого не пройдет миграцияl
-# DEFAULT_USER_IMAGE = MEDIA_URL + 'users/default.png' # фото по умолчание, если у пользователя нет фото. Чтобы не потерялся путь
+AUTH_USER_MODEL = 'users.User' # чтобы расширить модель пользователя, без этого не пройдет миграция
+DEFAULT_USER_IMAGE = MEDIA_URL + 'users/no_avatar.png' # фото по умолчание, если у пользователя нет фото. Чтобы не потерялся путь

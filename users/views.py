@@ -40,14 +40,14 @@ def register_done(request): # сам дописал, у СБ этого нет
 #         form = RegisterUserForm()
 #     return render(request, 'users/register.html', {'form': form})
 
-class ProfileUser(LoginRequiredMixin, UpdateView):
+class ProfileUser(LoginRequiredMixin, UpdateView): # класс представления изменений профиля пользователя
     model = get_user_model() # берем из самого джанго
     form_class = ProfileUserForm
     template_name = 'users/profile.html'
     extra_context = {'title': 'Профиль пользователя'}
 
-    def get_success_url(self):
-        return reverse_lazy('users:profile')
+    def get_success_url(self): # функция на какую страницу потом перейти после успешной заполнения формы
+        return reverse_lazy('users:login')
 
     def get_object(self, queryset=None): # метод защита, чтобы редактировать профиль мог только пользователь-хозяин профиля
         return self.request.user

@@ -4,6 +4,8 @@ from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView, FormView, CreateView, UpdateView
 from django.core.paginator import Paginator
+
+from Veterinary_clinic import settings
 from .models import *
 from django.views import generic # для списков питомцев и других объектов
 
@@ -44,7 +46,8 @@ class PetHome(DataMixin, ListView): # главная страница. DataMixin
         user = self.request.user
         user_first_name = user.username if user.is_authenticated else 'Гость'
         context['user_first_name'] = f'Привет, {user_first_name}!'
-        context['avatar'] = 'clinic/img/logo_link/no_avatar.png' if not user.is_authenticated else 'clinic/img/logo_link/admin.png'
+        context['avatar'] = settings.DEFAULT_USER_IMAGE
+        # context['avatar'] = 'clinic/img/logo_link/no_avatar.png' if not user.is_authenticated else 'clinic/img/logo_link/no_avatar.png'
         return context
 
 class Pet_list(LoginRequiredMixin, DataMixin, ListView): # модель на классе на модели метод весь список LoginRequiredMixin - класс для закрытия от неавторизованных пользователей, отправляет на страницу со входом в систему, а после переводит на страницу на которую пользователь хотел попасть.

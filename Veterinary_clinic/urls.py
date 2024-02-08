@@ -24,6 +24,7 @@ from clinic import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('clinic.urls')),
+    path('', include('shop.urls')),
     path('users/', include('users.urls', namespace='users')), # перенаправка на другой urls связанный с авторизацией на сайте, 2-й параметр обязателен для полей имен
     # path("__debug__/", include("debug_toolbar.urls")),  # для джангодебага
 ]
