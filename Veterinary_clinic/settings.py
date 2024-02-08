@@ -155,3 +155,6 @@ AUTHENTICATION_BACKENDS = [ #
     'django.contrib.auth.backends.ModelBackend', # стандартный бекенд, делает авторизацию по логину и паролю
     'users.authentication.EmailAuthBackend' # свой бекенд который прописали в папке users в файле authenticationБ делает авторизацию по email
 ]
+
+AUTH_USER_MODEL = 'users.User' # чтобы расширить модель пользователя, без этого не пройдет миграцияl
+# DEFAULT_USER_IMAGE = MEDIA_URL + 'users/default.png' # фото по умолчание, если у пользователя нет фото. Чтобы не потерялся путь

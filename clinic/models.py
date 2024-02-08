@@ -17,7 +17,6 @@ class Pet(models.Model):
     time_create = models.DateTimeField(auto_now_add=True, null=True,  verbose_name='Время создания')  # параметр автоматически заполняет поле но только в момент добавление записи, тоесь показывает время появление записи
     # image = models.CharField(max_length=12, null=True, verbose_name='Фото')
     medical_history = models.TextField(max_length=1000, unique=True, null=True, verbose_name='История болезни')
-
     slugPet = models.SlugField(max_length=20, unique=True, db_index=True, verbose_name='Slug', null=True)  # слаг для пути 1пар - макс. длина, 2пар - уникальность, 3пар - поле индексируемое, 4пар - чтобы создавалось поле с пустым значением
     # veterinarian = models.ManyToManyField('Veterinarian', blank=True, related_name='veterinarians')  # связываем с таблицей Veterinarian через связь многие ко многим, blank=True - потому что не каждая запись питомца будет содержать ветеринара, related_name='veterinarian_' - чтобы мы могли через ветеринаров получать список питомцев которые с ними связаны. on_delete - в этой связи отсутствует. Именно через этод ветеринара всязываются записи с остальными. пример: a.veterinarian_.set([tag_br, tag_o, tag_v])
 
@@ -26,6 +25,7 @@ class Pet(models.Model):
 
     def get_absolute_url(self):
         return reverse('info_pet', args=[self.id, self.slugPet]) # формируем slug (берется из поля таблицы) который потом передаем в ссылку во hrev на страницу и по этой ссылке ужже создается путь в url
+
 
     class Meta: # класс для сортировки отображение на странице в данном случае по времени созданию записи (задать реверс поставить минус перед параметром)
         verbose_name = 'Питомцы' # это для кабинета админа чтобы заголовок имел такое название

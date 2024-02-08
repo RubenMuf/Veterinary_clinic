@@ -42,32 +42,7 @@
     </div>
 
 
-    <div class="col-sm-8 p-3 bg-dark text-white">
-    <h3 style="text-align: center">Наши сотрудники:</h3>
-
-        <div class="container mt-3">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Специалист</th>
-                <th>Имя</th>
-                <th>Фамилия</th>
-                <th>Email</th>
-              </tr>
-            </thead>
-            <tbody>
-                {% for vet in list_vet %}
-              <tr>
-                <td>{{ vet.specialist }}</td>
-                <td>{{ vet.firstname }}</td>
-                <td>{{ vet.lastname }}</td>
-                <td>{{ vet.email }}</td>
-              </tr>
-                {% endfor %}
-            </tbody>
-          </table>
-        </div>
-
+    <div class="col-sm-8 p-3 text-white">
     </div>
   </div>
 </div>

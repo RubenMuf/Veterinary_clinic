@@ -47,15 +47,6 @@ class PetHome(DataMixin, ListView): # главная страница. DataMixin
         context['avatar'] = 'clinic/img/logo_link/no_avatar.png' if not user.is_authenticated else 'clinic/img/logo_link/admin.png'
         return context
 
-    # def avatar(self, **kwargs):
-    #     context = super().avatar(**kwargs)
-    #     user = self.request.user
-    #     if not user.is_authenticated:
-    #         context['avatar'] = 'clinic/img/logo_link/no_avatar.png'
-    #     return context
-
-
-
 class Pet_list(LoginRequiredMixin, DataMixin, ListView): # модель на классе на модели метод весь список LoginRequiredMixin - класс для закрытия от неавторизованных пользователей, отправляет на страницу со входом в систему, а после переводит на страницу на которую пользователь хотел попасть.
     model = Pet
     template_name = 'clinic/pet_list.html'
