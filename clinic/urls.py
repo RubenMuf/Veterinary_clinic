@@ -6,8 +6,6 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls), # путь для кабинета администратора
 
-    path('admin/', admin.site.urls),
-    # path('', views.index, name='home'),
     path('', views.PetHome.as_view(), name='home'),
     # path('veterinarian/', views.veterinarian, name='vet'),
 
@@ -20,7 +18,9 @@ urlpatterns = [
     path('record/', views.record, name='record'),
 
     path('user_pet/', include('django.contrib.auth.urls')), # чтобы юзеры могли заходить на сайт в кабинет за счет переадресации include
-    path('user_pet/registration/', views.registration, name='registration'),
+    # path('user_pet/registration/', views.registration, name='registration'),
 
-    path('edit_a_profile/', views.AddEdit_a_profile.as_view(), name='edit_a_profile')
+    path('edit_a_profile/', views.AddEdit_a_profile.as_view(), name='edit_a_profile'),
+
+    path('services/', views.services, name='services')
 ]

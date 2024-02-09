@@ -18,12 +18,16 @@
                 <a class="nav-link active" href="{% url 'home' %}">Главная</a> {# ссылки с путем по джанговской теме в {% путь который попадает в urls.py по имени %} #}
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">Услуги</a>
+                <a class="nav-link" href="{% url 'services' %}">Услуги</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'record' %}">Запись</a>
+                <a class="nav-link" href="{% url 'shop:shop' %}">Магазин</a>
             </li>
+
+{#            <li class="nav-item">#}
+{#                <a class="nav-link" href="{% url 'record' %}">Запись</a>#}
+{#            </li>#}
 
             {#            проверка если нет в таблице юзера то выводит Логин, если есть то Выйти#}
 {#            {% if not user.username %}#}

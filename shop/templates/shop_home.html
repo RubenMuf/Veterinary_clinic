@@ -1,0 +1,17 @@
+{% load static %}
+{% block menu %}  {# джанговская тема для выбода меню, чтобы информация их функций views.py попадала на HTML #}{#    <nav class="container mt-3">#}
+    {% include 'clinic/includes/block_menu.html' %}
+{% endblock menu %}{# конец блока меню, пишется обязательно #}
+
+{% block content %}
+<div class="container-fluid mt-3">
+
+
+  <div class="row">
+    <div class="col-sm-12 p-3 bg-primary text-white">
+      <h2>Приветствую Вас в нашем магазине!</h2>
+    </div>
+
+  </div>
+</div>
+{% endblock content %}

@@ -4,7 +4,7 @@ from django.urls import path, reverse_lazy
 from .import views
 from .views import Login_user
 
-app_name = 'users'
+app_name = 'users' # название нового файла с путями, чтобы ссылки на страницах находили URL
 
 urlpatterns = [
     path('login/', Login_user.as_view(), name='login'), # представление через класс, () - обязательны так как вызываем метод из класса

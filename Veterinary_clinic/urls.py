@@ -22,10 +22,10 @@ from clinic.views import page_not_found
 from clinic import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('clinic.urls')),
-    path('', include('shop.urls')),
-    path('users/', include('users.urls', namespace='users')), # перенаправка на другой urls связанный с авторизацией на сайте, 2-й параметр обязателен для полей имен
+    path('admin/', admin.site.urls), # путь для входа в админ панель
+    path('', include('clinic.urls')), # перенаправка на другой urls приложения clinic
+    path('shop/', include('shop.urls')), # перенаправка на другой urls приложения интернет-магазина 2-й параметр обязателен для полей имен. D njv
+    path('users/', include('users.urls', namespace='users')), # перенаправка на другой urls приложения регистрации и авторизации на сайте, 2-й параметр обязателен для полей имен
     # path("__debug__/", include("debug_toolbar.urls")),  # для джангодебага
 ]
 
