@@ -1,6 +1,9 @@
 {% load static %}
 {% block menu %}  {# джанговская тема для выбода меню, чтобы информация их функций views.py попадала на HTML #}{#    <nav class="container mt-3">#}
     {% include 'clinic/includes/block_menu.html' %}
+    <link rel="stylesheet" href="{% static '1.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="{% static '1.js' %}" defer></script>
 {% endblock menu %}{# конец блока меню, пишется обязательно #}
 
 {% block content %}
@@ -9,7 +12,38 @@
 
   <div class="row">
     <div class="col-sm-12 p-3 bg-primary text-white">
-      <h2>Приветствую Вас в нашем магазине!</h2>
+    <h2>Приветствую Вас в нашем магазине!</h2>
+    <header>
+        <a href="{% url 'shop:toKorz' %}">
+            <button>Корзина</button>
+        </a>
+    </header>
+
+    <main>
+        {% for one in tovari %}
+        <div class="card">
+            <a href="{% url 'shop:toIzbran' %}" onclick="f11(event,{{ one.id }})">
+                {% if  not one.izbran_set.values  %}
+                    <img src="{% static 'img/swhite.png' %}" alt="" class="serdze">
+                {% else %}
+                    <img src="{% static 'img/sred.png' %}" alt="" class="serdze">
+                {% endif %}
+            </a>
+            <img src="{% static one.image %}" alt="">
+            <p>{{ one.opis }}</p>
+            <p>{{ one.price }}Р</p>
+            <a href="{% url 'shop:buy' one.id %}">
+
+                {% if one.vkorzine == 1 %}
+                <button>В корзине</button>
+                {% else %}
+                <button>В корзину {{ one.DoesNotExist}}</button>
+                {% endif %}
+            </a>
+        </div>
+        {% endfor %}
+    </main>
+    <img id='id1' src="" alt="">
     </div>
 
   </div>

@@ -2,6 +2,7 @@
 from django.contrib import admin
 from django.urls import path, re_path, register_converter, include
 from . import views
+from .views import CommentCreateView
 
 urlpatterns = [
     path('admin/', admin.site.urls), # путь для кабинета администратора
@@ -22,5 +23,7 @@ urlpatterns = [
 
     path('edit_a_profile/', views.AddEdit_a_profile.as_view(), name='edit_a_profile'),
 
-    path('services/', views.services, name='services')
+    path('services/', views.services, name='services'),
+
+    path('articles/<int:pk>/comments/create/', CommentCreateView.as_view(), name='comment_create_view'), # путь для пердставления комментариев
 ]

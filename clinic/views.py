@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, HttpResponseNotFound, Http404
+from django.http import HttpResponse, HttpResponseNotFound, Http404, JsonResponse
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView, FormView, CreateView, UpdateView
 from django.core.paginator import Paginator
@@ -13,6 +13,9 @@ from clinic.models import Veterinarian, Pet
 from .forms import SignUpform, Edit_a_profile
 from clinic import mybibl
 from clinic.utils import *
+
+from .forms import CommentCreateForm
+from .models import Comment
 
 # Create your views here.
 
@@ -31,12 +34,7 @@ from clinic.utils import *
 
 class PetHome(DataMixin, ListView): # главная страница. DataMixin - наполнение шаблонов стандартной информацией - записывают его первым
     template_name = 'clinic/index.html'
-    # context_object_name =
     title_page = 'Главная страница' # название в пути, формируется в классе DataMixin
-# def veterinarian(request):
-#     # vet_list = Veterinarian.objects.all()  # старая версия вывода на экран
-#     # data = {'vet_list': vet_list}
-#     return render(request, 'clinic/veterinarian_list.html')
 
     def get_queryset(self): # формирует параметр для пути, открывать выбранную позицию
         return Pet.objects.all()
@@ -74,10 +72,13 @@ def record(request): # фунция вывода всех записей к вр
     data = {'record': record}
     return render(request, 'clinic/record.html', data)
 
+
 class AddEdit_a_profile(CreateView): # форма добавление питомца в БД класс представления для вывода формы
     model = Pet
     fields = '__all__'
     template_name = 'edit_a_profile/edit_a_profile.html'
+
+
 
 def services(request):
     return render(request, 'clinic/services.html')
@@ -85,6 +86,40 @@ def services(request):
 def page_not_found(request, exception): # настройка если страница не найдена продолжение в urls основной, второй параметр обязателен
     return HttpResponseNotFound('<h1>Страница не найдена!</h1>')
 
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    model = Comment
+    form_class = CommentCreateForm
+
+    def is_ajax(self):
+        return self.request.headers.get('X-Requested-With') == 'XMLHttpRequest'
+
+    def form_invalid(self, form):
+        if self.is_ajax():
+            return JsonResponse({'error': form.errors}, status=400)
+        return super().form_invalid(form)
+
+    def form_valid(self, form):
+        comment = form.save(commit=False)
+        comment.article_id = self.kwargs.get('pk')
+        comment.author = self.request.user
+        comment.parent_id = form.cleaned_data.get('parent')
+        comment.save()
+
+        if self.is_ajax():
+            return JsonResponse({
+                'is_child': comment.is_child_node(),
+                'id': comment.id,
+                'author': comment.author.username,
+                'parent_id': comment.parent_id,
+                'time_create': comment.time_create.strftime('%Y-%b-%d %H:%M:%S'),
+                'avatar': comment.author.profile.avatar.url,
+                'content': comment.content,
+                'get_absolute_url': comment.author.profile.get_absolute_url()
+            }, status=200)
+
+        return redirect(comment.article.get_absolute_url())
+    def handle_no_permission(self):
+        return JsonResponse({'error': 'Необходимо авторизоваться для добавления комментариев'}, status=400)
 
 
 
@@ -98,30 +133,6 @@ def page_not_found(request, exception): # настройка если стран
 
 
 
-
-
-# def index(request):
-#     if request.user.username:
-#         user_first_name = request.user.first_name
-#         img = 'clinic/img/logo_link/no_avatar.png'
-#         # print(user_first_name)
-#         # user_l_name = request.user.last_name
-#         if user_first_name == 'Главный':
-#             img = 'clinic/img/logo_link/admin.png'
-#             if Pet.objects.filter(nick_name=user_first_name and Pet.objects.filter(nick_name=user_first_name).image):
-#                 print('***')
-#                 # if Pet.objects.get(nick_name=user_first_name).image: # если в таблице питомца есть путь в поле image
-#                 img = Pet.objects.get(nick_name=user_first_name).image # то присваеваем ему его аватар
-#                 print('Питомец с аватаром', img)
-#     else:
-#         user_first_name = 'Гость'
-#         # user_l_name = '*****'
-#         # img = 'clinic/img/logo_link/no_avatar.png'
-#         print('Гость и у него соответственно нет аватара')
-#
-#     data = {'user_first_name': user_first_name, 'img': img}
-#
-#     return render(request, 'clinic/index.html', context=data)
 
 
 

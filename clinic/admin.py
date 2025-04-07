@@ -1,6 +1,9 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
+from mptt.admin import DraggableMPTTAdmin
+from .models import Comment
+
 from .models import Pet, Onwer, Record, Veterinarian # импорт нашей модели
 
 # Register your models here.
@@ -15,7 +18,7 @@ class PetAdmin(admin.ModelAdmin): # класс чтобы в админе ото
     # list_editable = ('is_published',) # отображение значения  и возможности его редактирования в админе, но нужно поправлять в моделе параметр 'is_published', делать костыль так как нет булевого значения
     list_per_page = 5 # отображение количества статей
     # actions = ['set_published', 'set_draft'] # чтобы в действиях добавилось свое собственное действие для опубликования статьи, работа в связке со строкой 18
-
+    save_on_top = True  # отображение в редакторе сохранить снизу и на сверху, по умолчанию если нет этой записи только внизу
     @admin.display(description='История болезни', ordering='id') # декоратор для названия этого метода, 2й пар для сортировки, можно указывать только который есть в таблице
     def brief_info(self, pet: Pet): # метод для вывода в админ для контента данного питомца
         if pet.medical_history:
@@ -69,6 +72,17 @@ class VeterinarianAdmin(admin.ModelAdmin): # класс чтобы в админ
             return mark_safe(f'<img src="{vet.photo.url}" width=50>')  # вывод фотографии
         else:
             return 'Без фото'
+
+@admin.register(Comment)
+class CommentAdminPage(DraggableMPTTAdmin):
+    """
+    Админ-панель модели комментариев
+    """
+    list_display = ('tree_actions', 'indented_title', 'article', 'author', 'time_create', 'status')
+    mptt_level_indent = 2
+    list_display_links = ('article',)
+    list_filter = ('time_create', 'time_update', 'author')
+    list_editable = ('status',)
 
 
 

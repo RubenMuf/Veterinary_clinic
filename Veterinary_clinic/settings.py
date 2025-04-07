@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'clinic.apps.ClinicConfig',
     'users', # для регистрации на сайте
     'shop', # приложение интернет магазин
+    'mptt'
     # 'debug_toolbar' # для джангодебага
 
 

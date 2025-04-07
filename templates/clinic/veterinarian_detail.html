@@ -1,7 +1,12 @@
 {% load static %}
+{% load mptt_tags %}
 {% block menu %}  {# джанговская тема для выбода меню, чтобы информация их функций views.py попадала на HTML #}{#    <nav class="container mt-3">#}
     {% include 'clinic/includes/block_menu.html' %}
 {% endblock menu %}{# конец блока меню, пишется обязательно #}
+
+<link href="{% static 'bootstrap/css/bootstrap.min.css' %}" type="text/css" rel="stylesheet">
+<script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/backend.js' %}"></script>
 
 {% block content %}
 <div class="container-fluid mt-3">
@@ -44,6 +49,18 @@
                   <p> {{ veterinarian.history }}</p>
 
                   <a href="">Записаться к доктору</a>
+
+
+    <div class="card border-0">
+	    <div class="card-body">
+		    <h5 class="card-title">
+			    Комментарии
+		    </h5>
+		{% include 'comments/comments_list.html' %}
+	    </div>
+    </div>
+
+
 
         </div>
         </div>
