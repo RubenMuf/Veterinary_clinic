@@ -1,0 +1,62 @@
+{% load static %}
+{% block menu %}  {# джанговская тема для выбода меню, чтобы информация их функций views.py попадала на HTML #}{#    <nav class="container mt-3">#}
+    {% include 'clinic/includes/block_menu.html' %}
+{% endblock menu %}{# конец блока меню, пишется обязательно #}
+
+{% block script %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="{% static '1.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-3">
+
+
+  <div class="row">
+    <div class="col-sm-12 p-3 bg-primary text-white">
+            <table>
+        {% for one in items %}
+            <tr>
+                <td>{{ one.tovar.opis }}</td>
+
+                <td>
+                    <a href="{% url 'shop:count' -1 one.id %}">
+                        <button> - </button>
+                    </a>
+                </td>
+                <td>{{ one.count }}шт</td>
+                <td>
+                    <a href="{% url 'shop:count' 1 one.id %}">
+                        <button> + </button>
+                    </a>
+                </td>
+
+                <td>Цена: {{ one.summa }}р</td>
+                <td>Всего: {{ one.calcSumma }}р</td>
+                <td>
+                    <a href="{% url 'shop:del' one.id %}">
+                         <button>удалить</button>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <h2>Сумма {{ itog }}р</h2>
+    <button id="fin">Оформить заказ</button>
+    <div id="forma" hidden>
+        <form action="" novalidate method="post" id="forma1">
+            {% csrf_token %}
+            {% for f in myform %}
+                <div>{{ f.label_tag }}</div>
+                <div>{{ f }}</div>
+                <div>{{ f.errors }}</div>
+            {% endfor %}
+
+            <input type="button" value="Подтвердить" id="fin2">
+        </form>
+    </div>
+    </div>
+
+  </div>
+</div>
+{% endblock content %}
